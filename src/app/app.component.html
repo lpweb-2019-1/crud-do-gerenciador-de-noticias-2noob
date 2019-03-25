@@ -1,0 +1,91 @@
+<h1>Notícias Angular</h1>
+<br>
+ <form #cadastro="ngForm" (submit)="salvar()">
+  <div>
+    <label for="titulo">Título </label>
+    <input type="text" id="titulo" name="titulo" [(ngModel)]="titulo" required>
+  </div>
+  <div>
+    <label for="conteudo">Conteúdo </label>
+    <textarea id="conteudo" name="conteudo" cols="80" rows="1" [(ngModel)]="conteudo" required></textarea>
+  </div>
+
+       <!-- Chamar Categoria -->
+  <div>
+    <label for="categoria"> Categoria </label>
+    <select  name="categoria" id="categoria" [(ngModel)]="categoria" required>
+      <option  value=""  >Selecione a Categoria</option>
+      <option  value="Artigo" >Artigo</option>
+      <option  value="Noticia" >Noticia</option>
+      <option  value="Informação" >Informação</option>
+      <option  value="Outros" >Outros</option>
+    </select>
+  </div>
+<div>
+   <!-- Chamar Tags -->
+  <label for="tags"> Tags </label>
+    <select name="tags" id="tags" [(ngModel)]="tags" required multiple class="form-control" >
+      <option  value="Artigo" >Artigo</option>
+      <option  value="Noticia" >Noticia</option>
+      <option  value="Informação" >Informação</option>
+      <option  value="Outros" >Outros</option>
+    </select>
+</div>
+
+  <!-- Editora da noticia-->
+<div>
+  <label for="editora">Editora</label>
+  <input type="radio" id="editora" name="editora" value="Política" [(ngModel)]="editora" required /> Política |
+  <input type="radio" id="editora" name="editora" value="Economia" [(ngModel)]="editora" required /> Economia |
+  <input type="radio" id="editora" name="editora" value="Esporte"[(ngModel)]="editora" required  /> Esporte |
+  <input type="radio" id="editora" name="editora" value="Entretenimento" [(ngModel)]="editora" required /> Entretenimento 
+</div>
+
+  <!-- Data -->
+<div>
+  <label for="date">Data </label>
+  <input type="date" id="date" name="date" [(ngModel)]="date" required>
+</div>
+<label for = "noticiapublicada">Noticia publicada </label>
+<input  type="checkbox" id="noticiapublicada" name="noticiapublicada" [(ngModel)]="noticiapublicada"><br/>
+  <!-- Função para salvar e limpar as caixas-->
+<div>
+  <button type="submit" [disabled]="!cadastro.form.valid">Salvar</button>
+  <button type="reset" formnovalidate>Limpar</button>
+</div>  
+ </form>
+
+   <!-- Corpo do sistema -->
+ <br>
+ <h2>Notícias Publicadas</h2>
+ <p>Clique no título da notícia para expandir</p>
+ <div>
+  <ul>
+    <li *ngFor="let noticia of noticias">
+       <p (click)="mostrar(noticia)">
+       {{ noticia.titulo }}
+       </p>
+       
+       <p *ngIf="noticia.visivel">
+         Descrição: {{ noticia.conteudo }}
+         <br>
+         Categoria: {{ noticia.categoria }}
+         <br>
+         Tags: {{ noticia.tags }}
+         <br>
+         Editora: {{ noticia.editora }}
+         <br>
+         Data: {{ noticia.date }}
+         <br>
+         Noticia Publicada: {{noticia.noticiapublicada}}
+         <br>
+         <button (click)="delete(noticia)">Deletar</button>
+        
+         <button (click)="fechar(noticia)">Fechar</button>
+         
+         <button (click)="editar(noticia)">Editar</button>
+       </p>
+    </li>
+  </ul>
+</div>
+
